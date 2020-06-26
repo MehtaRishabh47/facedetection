@@ -15,7 +15,8 @@ const image = require('./controllers/image');
 const db = knex({
     client: 'pg',
     connection: {
-        host: 'http://127.0.0.1:git62032/',
+        host: 'localhost',
+        post: '62032',
         user: 'postgres',
         password: 'test',
         database: 'facedetection'
@@ -34,7 +35,7 @@ app.use(bodyparser.json());
 app.get('/', (req, res) => {
     res.send('Working');
 });
-// ----------------------SIGNIN------------------------
+// ----------------------SIGNIN--------------------
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) })
 // ---------------------------Register--------------------------
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, saltRounds) })
