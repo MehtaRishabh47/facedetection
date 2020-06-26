@@ -15,7 +15,7 @@ const image = require('./controllers/image');
 const db = knex({
     client: 'pg',
     connection: {
-        host: '127.0.0.1',
+        host: 'http://127.0.0.1:git62032/',
         user: 'postgres',
         password: 'test',
         database: 'facedetection'
@@ -25,32 +25,14 @@ const db = knex({
 db.select('*').from('users').then(data => {
     console.log(data);
 });
-// const database = {
-//     user: [
-//         {
-//             id: '123',
-//             name: 'rishabh',
-//             email: 'rishabh.mehta@gmail.com',
-//             password: 'messi',
-//             entries: 3,
-//             joindate: new Date()
-//         },
-//         {
-//             id: '124',
-//             name: 'Messi',
-//             email: 'messi@gmail.com',
-//             password: 'goat',
-//             entries: 0,
-//             joindate: new Date()
-//         }
-//     ]
-// }
+
+
 app.use(cors());
 app.use(bodyparser.json());
 
 
 app.get('/', (req, res) => {
-    // res.send(database.user);
+    res.send('Working');
 });
 // ----------------------SIGNIN------------------------
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) })
@@ -64,6 +46,8 @@ app.put('/image', (req, res) => { image.handleImage(req, res, db) });
 app.post('/imageurl', (req, res) => { image.handleApi(req, res) })
 
 
-app.listen('3002');
+app.listen(process.env.PORT || 3002, () => {
+    console.log(`app is running on port ${process.env.PORT}`)
+});
 
 
